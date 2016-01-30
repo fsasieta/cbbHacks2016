@@ -7,13 +7,22 @@ function onForegroundWindowChange(app, title)
     local uppercaseApp = string.upper(app)
     myo.debug("onForegroundWindowChange: " .. app .. ", " .. title)
     myo.debug("works!")
-    return platform == "MacOS" and app == "com.microsoft.Powerpoint" or
-        platform == "Windows" and (uppercaseApp == "POWERPNT.EXE" or uppercaseApp == "PPTVIEW.EXE")
+    --return platform == "MacOS" and app == "com.microsoft.Powerpoint" or
+    --    platform == "Windows" and (uppercaseApp == "POWERPNT.EXE" or uppercaseApp == "PPTVIEW.EXE")
+    return true
 end
 
 function activeAppName()
-    return "PowerPoint"
+    return true
 end
+
+function onUnlock()  
+        myo.unlock("hold")
+        myo.controlMouse(true)
+        myo.debug("you are now controlling the mouse")
+    end
+
+
 
 -- flag to de/activate shuttling feature
 supportShuttle = false
@@ -28,6 +37,13 @@ function backward()
     myo.keyboard("up_arrow", "press")
 end
 
+function click()
+    myo.mouse("left", "click")
+end
+
+function disableMouse()
+    myo.controlMouse(false)
+end
 -- Helpers
 
 function conditionallySwapWave(pose)
@@ -82,10 +98,16 @@ function onPoseEdge(pose, edge)
             shuttleTimeout = nil
         end
     end
+    if pose == "fist" then
+        click()
+    end
+    if pose == "fingersSpread" then
+        disableMouse()
+    end
 end
 
 -- All timeouts in milliseconds
-SHUTTLE_CONTINUOUS_TIMEOUT = 600
+SHUTTLE_CONTINUOUS_TIMEOUT = 2000
 SHUTTLE_CONTINUOUS_PERIOD = 300
 
 function onPeriodic()
