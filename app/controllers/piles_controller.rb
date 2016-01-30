@@ -16,6 +16,13 @@ class PilesController < ApplicationController
 		end
 	end
 
+	def show
+		@pile = Pile.find(params[:id])
+
+		@flashcard = Flashcard.new
+		@flashcards = @pile.flashcards
+	end
+
 
 	private
 
