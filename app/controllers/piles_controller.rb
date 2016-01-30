@@ -21,6 +21,8 @@ class PilesController < ApplicationController
 
 		@flashcard = Flashcard.new
 		@flashcards = @pile.flashcards
+
+		@answer = Answer.new
 	end
 
 
