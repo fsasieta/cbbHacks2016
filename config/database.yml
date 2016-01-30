@@ -88,5 +88,5 @@ production:
   <<: *default
   database: polartests_production
   username: polartests
-  password: <%= ENV['POLARTESTS_DATABASE_PASSWORD'] %>
+  password: password
   host: localhost
