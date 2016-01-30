@@ -1,7 +1,10 @@
-scriptId = 'com.github.franconoahjames.mysecondscript'
-scriptDetailsUrl = 'https://market.myo.com/app/5474c658e4b0361138df2a9e'
-scriptTitle = 'Flashcard Test'
+require "os"
 
+scriptId = 'com.github.franconoahjames.mysecondscript'
+scriptDetailsUrl = '' -- We don't have this until b/c we havent
+		      -- submitted to the myo market.
+scriptTitle = 'Flashcard Test'
+startWebpage = false
 
 function onForegroundWindowChange(app, title)
     local uppercaseApp = string.upper(app)
@@ -9,23 +12,36 @@ function onForegroundWindowChange(app, title)
     myo.debug("works!")
     return platform == "MacOS" and app == "Chrome.app" or
         platform == "Windows" and (uppercaseApp == "CHROME.EXE")
-    --return true
+    -- If only testing or dont know app's name, just return true
+    -- return true
 end
 
 function activeAppName()
     return "Chrome"
-    --If only testing with any app, return true
+    -- If only testing with any app, return true
 end
 
 function onUnlock()  
+
+    if not startWebpage then
+	myo.debug("Starting the webpage with the system call")
+        if platform == "Windows" then
+            os.execute("start chrome www.willyoupressthebutton.com")
+	 
+        end
+        if platform == "MacOS" then
+            os.execute("open -a 'Google Chrome' www.willyoupressthebutton.com")
+        end
+        startWebpage = true
+    end
+
     myo.unlock("hold")
     myo.controlMouse(true)
     myo.debug("you are now controlling the mouse")
 end
 
 
-
--- flag to de/activate shuttling feature
+-- Flag to de/activate shuttling feature
 supportShuttle = false
 
 -- Effects
@@ -102,7 +118,22 @@ function onPoseEdge(pose, edge)
         end
     end
     if pose == "fist" then
+	--if edge == "on" then
+        
+	    -- Extend unlock and notify user
+            -- myo.unlock("hold")
+            -- myo.notifyUserAction()
+            
+            -- Actual action.
+	myo.debug("Value of edge: " .. edge)
         click()
+	--end
+        myo.debug("Value of edge: " .. edge)
+
+	--if edge == "off" then
+            -- myo.unlock("timed")
+            --shuttleTimeout = nil	
+	--end
     end
     if pose == "fingersSpread" then
         disableMouse()
@@ -113,8 +144,12 @@ end
 SHUTTLE_CONTINUOUS_TIMEOUT = 2000
 SHUTTLE_CONTINUOUS_PERIOD = 300
 
+-- TODO: change the website to our website name
+--
 function onPeriodic()
     local now = myo.getTimeMilliseconds()
+    
+
     if supportShuttle and shuttleTimeout then
         if (now - shuttleSince) > shuttleTimeout then
             shuttleBurst()
