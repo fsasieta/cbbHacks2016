@@ -1,0 +1,2 @@
+//re-render list of flashcards
+$(".flashcard_list").html("<%= escape_javascript(render partial: 'flashcards/flashcard_list', collection: @flashcards) %>");

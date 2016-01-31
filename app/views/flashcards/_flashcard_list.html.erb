@@ -1,0 +1,26 @@
+<!-- List out flashcards -->
+
+<li>
+	<%= link_to flashcard_list.info, "#" %>
+
+		<%= simple_form_for @answer, remote: true do |f| %>
+			<%= f.input :name %>
+			<%= f.input :correct %>
+			<%= f.input :flashcard_id, :as => :hidden, :input_html => { :value => flashcard_list.id } %>
+			<%= f.submit "Create a Answer!" %>
+		<% end %>
+
+		<!-- List out answers to flashcards -->
+		<% flashcard_list.answers.each do |answer| %>
+			<li>
+				<%= answer.name %>
+				<% if answer.correct %>
+					<%= "(Correct)" %>
+				<% end %>
+			</li>
+			
+
+		<% end %>
+</li>
+
+<br />

@@ -1,0 +1,20 @@
+
+
+
+<!-- Create a pile of flashcards -->
+<h3>Create a pile of flashcards!</h3>
+<!--Form for entering in pile name -->
+
+<%= simple_form_for @pile, remote: true do |f| %>
+	<%= f.input :name %>
+	<%= f.submit "Create a Pile!" %>
+<% end %>
+
+
+<!-- List out all of your piles -->
+<h1>Here are all of your flashcard piles!</h1>
+
+<div class="pile_list">
+	<%= render partial: "pile_list", collection: @piles %>
+
+</div>

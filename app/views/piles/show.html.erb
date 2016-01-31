@@ -1,0 +1,21 @@
+<h1><%= @pile.name %></h1>
+
+<h1><%= link_to "Study this pile!", study_pile_path(@pile) %></h1>
+
+<!-- Create or Delete Flashcards -->
+
+<%= simple_form_for @flashcard, remote: true do |f| %>
+	<%= f.input :info %>
+	<%= f.input :pile_id, :as => :hidden, :input_html => { :value => @pile.id } %>
+	<%= f.submit "Create a Flashcard!" %>
+<% end %>
+
+
+
+
+<!-- List out flashcards -->
+<h1>Here are all of your flashcards in <%= @pile.name %></h1>
+
+<div class="flashcard_list">
+	<%= render partial: "flashcards/flashcard_list", collection: @flashcards %>
+</div>
