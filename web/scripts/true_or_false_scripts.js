@@ -72,7 +72,7 @@ function doc_keyUp(e) {
 function goBack(div){
 	
 	$("#questiontext").fadeOut(function() {
-  		$(this).html("Going left")
+  		$(this).html("Options going left")
 	}).fadeIn();
 
 
@@ -95,7 +95,10 @@ function goForward(div){
 		var $btn4 = $('<a href="#" class="btn" id="my2">D</a></p>').fadeIn(500).appendTo('.hot-container');
 	}
 	else{
-		
+		  $("#questiontext").fadeOut(function() {
+  				$(this).html("Options going right")
+			}).fadeIn();
+
 
 		/*
 		var $newOption = $( "<div class='btn'></div>");

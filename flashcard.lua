@@ -1,5 +1,3 @@
-require "os"
-
 scriptId = 'com.github.franconoahjames.mysecondscript'
 scriptDetailsUrl = '' -- We don't have this until b/c we havent
 		      -- submitted to the myo market.
@@ -9,32 +7,20 @@ startWebpage = false
 function onForegroundWindowChange(app, title)
     local uppercaseApp = string.upper(app)
     myo.debug("onForegroundWindowChange: " .. app .. ", " .. title)
-    myo.debug("works!")
-    return platform == "MacOS" and app == "Chrome.app" or
-        platform == "Windows" and (uppercaseApp == "CHROME.EXE")
+    myo.debug("works! ok")
+    --return platform == "MacOS" and app == "Chrome.app" or
+    --    platform == "Windows" and (uppercaseApp == "CHROME.EXE")
     -- If only testing or dont know app's name, just return true
-    -- return true
+     return true
 end
 
 function activeAppName()
-    return "Chrome"
+    --return "Chrome"
     -- If only testing with any app, return true
+     return true
 end
 
 function onUnlock()  
-
-    if not startWebpage then
-	myo.debug("Starting the webpage with the system call")
-        if platform == "Windows" then
-            os.execute("start chrome www.willyoupressthebutton.com")
-	 
-        end
-        if platform == "MacOS" then
-            os.execute("open -a 'Google Chrome' www.willyoupressthebutton.com")
-        end
-        startWebpage = true
-    end
-
     myo.unlock("hold")
     myo.controlMouse(true)
     myo.debug("you are now controlling the mouse")
@@ -47,11 +33,19 @@ supportShuttle = false
 -- Effects
 
 function forward()
-    myo.keyboard("down_arrow", "press")
+    myo.keyboard("right_arrow", "press")
 end
 
 function backward()
-    myo.keyboard("up_arrow", "press")
+    myo.keyboard("left_arrow", "press")
+end
+
+function upward()
+    myo.keyboard("up_arrow","press")
+end
+
+function downward()
+    myo.keyboard("down_arrow", "press")
 end
 
 function click()
@@ -125,7 +119,7 @@ function onPoseEdge(pose, edge)
             -- myo.notifyUserAction()
             
         -- Actual action.
-	myo.debug("Value of edge: " .. edge)
+	    myo.debug("Value of edge: " .. edge)
         click()
 	--end
         myo.debug("Value of edge: " .. edge)
