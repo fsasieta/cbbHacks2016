@@ -1,5 +1,7 @@
 <h1><%= @pile.name %></h1>
 
+<h1><%= link_to "Study this pile!", study_pile_path(@pile) %></h1>
+
 <!-- Create or Delete Flashcards -->
 
 <%= simple_form_for @flashcard, remote: true do |f| %>
