@@ -27,14 +27,7 @@ class PilesController < ApplicationController
 
 	def study
 		@pile = Pile.find(params[:id])
-
-
-
-		@flashcards = @pile.flashcards.to_a
-
-		@random_flashcards = @flashcards.shuffle
-
-
+		@flashcards = @pile.flashcards
 	end
 
 	private

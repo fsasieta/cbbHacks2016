@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 	document.addEventListener('keyup', doc_keyUp, false);
 
-	//var welcomeText = "<span>Welcome to True or False! wave LEFT to go back, or RIGHT to go forward</span>";
+//	var welcomeText = "<span>Welcome to True or False! wave LEFT to go back, or RIGHT to go forward</span>";
 
 //	$("#questiontext").append(welcomeText);
 
